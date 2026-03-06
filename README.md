@@ -59,7 +59,20 @@ Proje dosyaları düzenli bir hiyerarşi ile ayrılmıştır:
 
 ---
 
+## 💾 EEPROM Yönetimi (AT24C32)
+
+Modül üzerindeki EEPROM çipi, 16-bit adresleme protokolü ile çalışır.
+
+### Teknik Detaylar
+- **Cihaz Adresi:** `0xAE` (Yazma) / `0xAF` (Okuma)
+- **Sayfa Yapısı:** 32-Byte (Tek seferde maksimum 32 byte yazılabilir).
+- **Adresleme:** 4096 adrese erişim için `I2C_MEMADD_SIZE_16BIT` kullanılmalıdır.
+
+---
+
 ## 📝 Notlar
 > [!IMPORTANT]
 > DS3231'in `INT` pini "Active Low" (Lojik 0) çalışır. Bu nedenle STM32 tarafında EXTI pini **Falling Edge** (Düşen Kenar) ve **Pull Down** modunda ayarlanmalıdır.
+> Sayfa Sınırı: Yazma işlemi sırasında 32 byte'lık sınır aşılırsa veri "rollover" yaparak aynı sayfanın başına döner ve mevcut verilerin üzerine yazar.
+> Gerilim Seviyesi: Modül 3.3V ile beslenmelidir; 5V kullanımı STM32 I2C pinlerine zarar verebilir.
 ---
