@@ -3,7 +3,6 @@ extern I2C_HandleTypeDef hi2c1;
 
 extern DS3231_Time_t ds3231_Time;
 extern DS3231_Alarm_t ds3231_Alarm;
-extern uint8_t val;
 extern uint8_t control_reg_val; // INTCN=1, A1IE=1
 extern uint8_t status_reg_reset ;
 

@@ -124,7 +124,7 @@ int main(void)
 
 
 	 ds3231_Time = DS3231_Get_Time();
-
+	 HAL_Delay(100);
 
 
 
