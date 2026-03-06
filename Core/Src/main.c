@@ -105,7 +105,9 @@ int main(void)
 
   //control Reg write for activate the alarm 1 and other config
 
-
+/*
+EEPROM WRİTE READ
+ ****************************
   for(int i = 0; i<32 ; i++)
   {
 	  writeData[i] = i;
@@ -113,8 +115,9 @@ int main(void)
 
   Write_EEPROM(0x00, writeData, 32);
   Read_EEPROM(0x00, readData, 32);
+*/
 
-  /*
+ /*
 RTC AND ALARM
    * *********************************************** *
   HAL_I2C_Mem_Write(&hi2c1, 0xD0, 0x0E, 1, &control_reg_val, 1, HAL_MAX_DELAY);
