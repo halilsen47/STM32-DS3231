@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "ds3231.h"
+#include "eeprom.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -52,7 +53,8 @@ DS3231_Alarm_t ds3231_Alarm;
 uint8_t val = 0;
 uint8_t control_reg_val = 0x05; // INTCN=1, A1IE=1
 uint8_t status_reg_reset = 0x00;
-
+uint8_t writeData[32];
+uint8_t readData[32];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -103,15 +105,28 @@ int main(void)
 
   //control Reg write for activate the alarm 1 and other config
 
+
+  for(int i = 0; i<32 ; i++)
+  {
+	  writeData[i] = i;
+  }
+
+  Write_EEPROM(0x00, writeData, 32);
+  Read_EEPROM(0x00, readData, 32);
+
+  /*
+RTC AND ALARM
+   * *********************************************** *
   HAL_I2C_Mem_Write(&hi2c1, 0xD0, 0x0E, 1, &control_reg_val, 1, HAL_MAX_DELAY);
   //status Reg write for set the alarm1 flag 0
   HAL_I2C_Mem_Write(&hi2c1, 0xD0, 0x0F, 1, &status_reg_reset, 1, HAL_MAX_DELAY);
-
-
   DS3231_Set_Time(50, 59, 23, 7, 31, 12, 26);
   DS3231_Set_Alarm(10,0, 0, 1);
-
   ds3231_Alarm = DS3231_Get_Alarm();
+  * ************************************************* *
+  */
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -122,10 +137,13 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-
+	  /*
+FOR RTC AND ALARM
+	 	 *** ***************************
 	 ds3231_Time = DS3231_Get_Time();
 	 HAL_Delay(100);
-
+	   	  ******************************
+	   */
 
 
 
